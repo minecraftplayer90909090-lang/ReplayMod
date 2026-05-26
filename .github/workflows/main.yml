@@ -14,7 +14,7 @@ jobs:
       - name: Build
         run: ./gradlew :1.21:build
       - name: Upload JAR
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: replaymod-1.21
           path: versions/1.21/build/libs/*.jar
