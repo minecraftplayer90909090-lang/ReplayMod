@@ -885,12 +885,12 @@ public class CameraEntity
 
         { on(RenderSpectatorCrosshairCallback.EVENT, this::shouldRenderSpectatorCrosshair); }
         private Boolean shouldRenderSpectatorCrosshair() {
-            return canSpectate(mc.targetedEntity);
+            return true;
         }
 
         { on(RenderHotbarCallback.EVENT, this::shouldRenderHotbar); }
         private Boolean shouldRenderHotbar() {
-            return false;
+            return true;
         }
 
         { on(SettingsChangedCallback.EVENT, this::onSettingsChanged); }
