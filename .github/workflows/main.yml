@@ -12,9 +12,11 @@ jobs:
         with:
           java-version: |
             8
+            16
+            17
             21
           distribution: 'temurin'
-      - name: Build
+      - name: Build 1.21
         run: ./gradlew :1.21:build
       - name: Upload JAR
         uses: actions/upload-artifact@v4
