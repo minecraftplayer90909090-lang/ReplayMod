@@ -18,8 +18,18 @@ jobs:
           distribution: 'temurin'
       - name: Apply fixes
         run: |
-          sed -i '888s/return canSpectate(mc.targetedEntity);/return true;/' src/main/java/com/replaymod/replay/camera/CameraEntity.java
-          sed -i '893s/return false;/return true;/' src/main/java/com/replaymod/replay/camera/CameraEntity.java
+          python3 - << 'EOF'
+          with open("src/main/java/com/replaymod/replay/camera/CameraEntity.java", "r") as f:
+              content = f.read()
+          content = content.replace("return canSpectate(mc.targetedEntity);", "return true;")
+          content = content.replace("private Boolean shouldRenderHotbar() {\n            return false;", "private Boolean shouldRenderHotbar() {\n            return true;")
+          with open("src/main/java/com/replaymod/replay/camera/CameraEntity.java", "w") as f:
+              f.write(content)
+          print("Done!")
+          EOF
+      - name: Verify fixes
+        run: |
+          grep -n "shouldRenderHotbar\|shouldRenderSpectatorCrosshair" src/main/java/com/replaymod/replay/camera/CameraEntity.java
       - name: Build 1.21
         run: ./gradlew :1.21:build
       - name: Upload JAR
