@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          repository: ReplayMod/ReplayMod
           submodules: recursive
       - uses: actions/setup-java@v4
         with:
@@ -15,6 +16,10 @@ jobs:
             17
             21
           distribution: 'temurin'
+      - name: Apply fixes
+        run: |
+          sed -i 's/return canSpectate(mc.targetedEntity);/return true;/' src/main/java/com/replaymod/replay/camera/CameraEntity.java
+          sed -i '/shouldRenderHotbar/{n;s/return false;/return true;/}' src/main/java/com/replaymod/replay/camera/CameraEntity.java
       - name: Build 1.21
         run: ./gradlew :1.21:build
       - name: Upload JAR
