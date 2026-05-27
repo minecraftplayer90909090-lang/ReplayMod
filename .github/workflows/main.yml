@@ -6,7 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: ReplayMod/ReplayMod
           submodules: recursive
       - uses: actions/setup-java@v4
         with:
