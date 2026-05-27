@@ -18,8 +18,7 @@ jobs:
           distribution: 'temurin'
       - name: Apply fixes
         run: |
-          sed -i 's/return canSpectate(mc.targetedEntity);/return true;/' src/main/java/com/replaymod/replay/camera/CameraEntity.java
-          sed -i '/shouldRenderHotbar/{n;s/return false;/return true;/}' src/main/java/com/replaymod/replay/camera/CameraEntity.java
+          grep -n "shouldRenderHotbar\|canSpectate\|return false" src/main/java/com/replaymod/replay/camera/CameraEntity.java
       - name: Build 1.21
         run: ./gradlew :1.21:build
       - name: Upload JAR
